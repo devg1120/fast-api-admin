@@ -1,0 +1,29 @@
+{%extends './header.html'%}
+{%block content%}
+
+
+<h1 class="text-light p-2 fs-2 fw-bold bg-danger text-center ">Teacher Id Card</h1>
+<hr>
+<table class="table table-bordered table-dark">
+	<tr>
+		<th>Id</th>
+		<td>{{teacher.id}}</td>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<td>{{teacher.name}}</td>
+     </tr>
+	 <tr>
+		<th>Age</th>
+		<td>{{teacher.age}}</td>
+	 </tr>
+	 <tr>
+		<th>Subject</th>
+		<td>{{teacher.subject}}</td>
+	 </tr>
+</table>
+<td> 
+	<a href="/manage-teachers" class="btn btn-success"> Back </a>
+</td>
+
+{%endblock%}

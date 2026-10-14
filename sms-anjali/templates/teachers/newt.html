@@ -1,0 +1,14 @@
+{%extends './header.html'%}
+{%block content%}
+	<h1 class="text-light fs-1 fw-bold bg-danger text-center p-2">New Teacher</h1>
+	<hr>
+	<form action="/save-teacher" method='post'>
+		<label class="text-dark fw-bold">Enter Name-</label>
+		<input type="text" name="name">
+		<label class="text-dark fw-bold">Enter Age-</label>
+		<input type="number" name="age">
+		<label class="text-dark fw-bold">Enter Subject-</label>
+		<input type="text" name="subject">
+		<input type="submit" class="btn btn-primary">
+	</form>
+{%endblock%}

@@ -1,0 +1,69 @@
+service: fast-api-admin-template
+
+plugins:
+  - serverless-plugin-warmup
+  - serverless-offline
+
+custom:
+  # customDomain:
+  #   domainName: fast-api-admin-${self:provider.stage}.janetech.io
+  #   stage: "${self:provider.stage}"
+  #   basePath: ""
+  #   certificateName: "*.janetech.io"
+  #   createRoute53Record: true
+  warmup:
+    default:
+      enabled: true
+      events:
+        - schedule: rate(3 minutes)
+      prewarm: true
+      concurrency: 10
+
+provider:
+  name: aws
+  architecture: arm64
+  apiName: ${opt:stage,'dev'}-fast-api-admin
+  runtime: python3.9
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  memorySize: 10240
+  timeout: 30
+  logRetentionInDays: 14
+  versionFunctions: true
+
+  environment:
+    STAGE: ${self:provider.stage}
+    AWS_LAMBDA:  true
+
+
+  ecr:
+    images:
+      appimage:
+        path: ./
+
+functions:
+  stream:
+    timeout: 28
+    maximumEventAge: 60
+    maximumRetryAttempts: 0
+    image:
+      name: appimage
+      command:
+          - apps.main.handler
+      entryPoint:
+          - '/lambda-entrypoint.sh'
+    warmup:
+      default:
+        enabled: true
+    events:
+      - httpApi:
+          path: /
+          method: GET
+      - httpApi:
+          path: /{proxy+}
+          method: GET
+
+
+  
+
+ 

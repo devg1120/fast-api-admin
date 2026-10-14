@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- data-bs-theme="light" または "dark" でネイティブなダークモードが有効になります -->
+<html lang="ja" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdminLTE 4 | FastAPI Dashboard</title>
+  
+  <!-- Bootstrap Icons (AdminLTE 4のデフォルト) -->
+  <!--
+  <link rel="stylesheet" href="https://jsdelivr.net">
+  -->
+  <!-- AdminLTE 4 Core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', path='css/adminlte.min.css') }}">
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="app-wrapper">
+
+  <!-- ヘッダー (app-header) -->
+  <nav class="app-header navbar navbar-expand bg-body">
+    <div class="container-fluid">
+      <!-- サイドバーの開閉トリガー (data-lte-toggle) -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+            <i class="bi bi-list"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- サイドバー (app-sidebar) -->
+  <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+    <div class="sidebar-brand">
+      <a href="/" class="brand-link">
+        <span class="brand-text fw-light">FastAPI Panel</span>
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <nav class="mt-2">
+
+<ul class="nav text-sm flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+
+  <!-- ダッシュボード -->
+  <li class="nav-item">
+    <a href="/" class="nav-link {% if current_page == 'dashboard' %}active{% endif %}">
+      <i class="nav-icon bi bi-speedometer"></i>
+      <p>ダッシュボード</p>
+    </a>
+  </li>
+
+  <li class="nav-item {% if current_page in ['users', 'products'] %}menu-open{% endif %}">
+    <a href="#" class="nav-link {% if current_page in ['users', 'products'] %}active{% endif %}">
+      <i class="nav-icon bi bi-folder-fill"></i>
+      <p>
+        データ管理
+        <i class="nav-arrow bi bi-chevron-right"></i>
+      </p>
+    </a>
+
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="/users" class="nav-link ps-4 {% if current_page == 'users' %}active{% endif %}">
+          <i class="nav-icon bi bi-circle"></i>
+          <p> ユーザー一覧</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/products" class="nav-link ps-4 {% if current_page == 'products' %}active{% endif %}">
+          <i class="nav-icon bi bi-circle"></i>
+          <p> 商品一覧</p>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+
+      </nav>
+    </div>
+  </aside>
+
+  <!-- メインコンテンツ領域 (app-main) -->
+  <main class="app-main">
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+<!-- AdminLTE 4 はjQuery不要。これ単体で動作します -->
+<script src="{{ url_for('static', path='js/adminlte.min.js') }}"></script>
+</body>
+</html>
