@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- data-bs-theme="light" または "dark" でネイティブなダークモードが有効になります -->
+<html lang="ja" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdminLTE 4 | FastAPI Dashboard</title>
+  
+  <!-- Bootstrap Icons (AdminLTE 4のデフォルト) -->
+  <!--
+  <link rel="stylesheet" href="https://jsdelivr.net">
+  -->
+  <!-- AdminLTE 4 Core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', path='css/adminlte.min.css') }}">
+
+<style>
+  /* 初期表示時、menu-open クラスが付いていないツリービューは強制的に非表示（閉じ状態）にする */
+  .nav-item:not(.menu-open) > .nav-treeview {
+    display: none !important;
+  }
+  /* 2. 💡 2階層目のインデントをさらに広げる設定（追加） */
+  .nav-treeview .nav-item .nav-link {
+    padding-left: 2.5rem !important; /* 標準のps-4(1.5rem)より広い「2.5rem」に固定します */
+  }
+
+
+  /* 3. 💡 項目の行間隔を限界まで狭くする強制上書き設定 */
+  .sidebar-wrapper .nav-item .nav-link {
+    padding-top: 8px !important;     /* 上の余白を極限まで詰める */
+    padding-bottom: 4px !important;  /* 下の余白を極限まで詰める */
+    min-height: auto !important;     /* 高さを自動計算にする */
+  }
+
+  /* 4. 💡 アイコンと文字の行高・余白もリセットして隙間を潰す */
+  .sidebar-wrapper .nav-item .nav-link p,
+  .sidebar-wrapper .nav-item .nav-link .nav-icon {
+    line-height: 1.2 !important;     /* 文字の行高を低くする */
+    margin: 0 !important;            /* 余計なマージンを全てゼロにする */
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  
+  /* 矢印アイコンの位置調整 */
+  .sidebar-wrapper .nav-item .nav-link .nav-arrow {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  
+
+</style>
+
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="app-wrapper">
+
+  <!-- ヘッダー (app-header) -->
+  <nav class="app-header navbar navbar-expand bg-body">
+    <div class="container-fluid">
+      <!-- サイドバーの開閉トリガー (data-lte-toggle) -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+            <i class="bi bi-list"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- サイドバー (app-sidebar) -->
+  <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+    <div class="sidebar-brand">
+      <a href="/" class="brand-link">
+        <span class="brand-text fw-light">FastAPI Panel</span>
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <nav class="mt-2">
+
+<!-- 💡 親のulに「data-lte-toggle="treeview"」を戻します。これでクリック開閉が復活します。 -->
+<ul class="nav text-sm flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+  
+  <!-- ダッシュボード（1階層のみ） -->
+  <li class="nav-item">
+    <a href="/" class="nav-link {% if current_page == 'dashboard' %}active{% endif %}">
+      <i class="nav-icon bi bi-speedometer"></i>
+      <p>ダッシュボード</p>
+    </a>
+  </li>
+
+  <!-- 💡 2階層メニューの親 
+       「menu-open」の判定のみをここに残します。
+       これにより、ダッシュボード表示時はクラスが何も付かないため初期状態で「閉じ」になります。
+       ユーザー一覧や商品一覧のページを開いた時だけ、最初から「展開」されます。 -->
+  <li class="nav-item {% if current_page in ['users', 'products'] %}menu-open{% endif %}">
+    
+    <!-- 💡 親のリンク（<a>）には「active」クラスや余計なdata属性をあえて付けず、シンプルにします -->
+    <a href="#" class="nav-link">
+      <i class="nav-icon bi bi-folder-fill"></i>
+      <p>
+        データ管理
+        <i class="nav-arrow bi bi-chevron-right"></i>
+      </p>
+    </a>
+    
+    <!-- 子メニュー領域 -->
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="/users" class="nav-link ps-4 {% if current_page == 'users' %}active{% endif %}">
+          <i class="nav-icon bi bi-circle"></i>
+          <p>ユーザー一覧</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/products" class="nav-link ps-4 {% if current_page == 'products' %}active{% endif %}">
+          <i class="nav-icon bi bi-circle"></i>
+          <p>商品一覧</p>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+
+      </nav>
+    </div>
+  </aside>
+
+  <!-- メインコンテンツ領域 (app-main) -->
+  <main class="app-main">
+    {% block content %}{% endblock %}
+  </main>
+
+</div>
+
+<script src="{{ url_for('static', path='js/adminlte.min.js') }}"></script>
+</body>
+</html>
