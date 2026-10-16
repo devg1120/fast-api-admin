@@ -1,0 +1,19 @@
+
+#### flask  version ####
+
+cd apps
+
+python main.py
+
+http://127.0.0.1:5000/
+
+
+#### fastapi version ####
+
+cd apps-fastapi
+
+python main.py
+
+http://127.0.0.1:8000/
+
+
