@@ -1,11 +1,12 @@
-# fastapi
 
  sms-anjali/
+ sms-anjali-fastapi/
 
 
-# flask
+AppSeed製のダッシュボード
 
  jinja-sb-admin/
+ jinja-sb-admin-fastapi/
 
 
 
