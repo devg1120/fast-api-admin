@@ -1,0 +1,40 @@
+{%extends './header.html'%}
+{%block content%}
+<h1 class="text-light p-2 fs-2 fw-bold bg-danger text-center ">Manage Fees</h1>
+	<hr>
+	<a href="/new-fees" class="btn btn-primary">New Fees</a>
+	<a href="/" class="btn btn-primary">Dashboard</a>
+	<hr>
+	<table class="table table-bordered table-dark">
+		<tr>
+			<th>Student id</th>
+			<th>Name</th>
+			<th>Amount</th>
+			<th>Print</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	{%for f in fees%}
+		<tr>
+			<td>{{ f.s_id }}</td>
+			<td>
+				{% for s in students %}
+					{% if s.id == f.s_id %}
+						{{ s.name }}
+					{% endif %}
+				{% endfor %}
+			</td>
+			<td>{{ f.amount }}</td>
+			<td>
+			<a href="/print-fees/{{ f.id }}" class="btn btn-info">Print</a>
+			</td>
+			<td>
+			<a href="/edit-fees/{{ f.id }}" class="btn btn-warning">Edit</a>
+			</td>
+			<td>
+			<a href="/delete-teacher/{{ f.id }}" class="btn btn-danger">Delete</a>
+			</td>
+			</tr>
+	{%endfor%}
+	</table>
+{%endblock%}

@@ -1,6 +1,0 @@
-
-pip install fastapi uvicorn jinja2 python-multipart
-
-
-
-python main.py

@@ -1,0 +1,17 @@
+{%extends './header.html'%}
+{%block content%}
+<h1>New Fees</h1>
+<hr>
+<form action="save-fees" method='post'>
+	<label>Select Student</label>
+	
+	<select name="s_id">
+	{%for s in students%}
+		<option value="{{s.id}}">{{s.name}}</option>
+	{%endfor%}
+	</select>
+	<label>Amount</label>
+	<input type="number" name="amount">
+	<input type="submit">
+</form>
+{%endblock%}
