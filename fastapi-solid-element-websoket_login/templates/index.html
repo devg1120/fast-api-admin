@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>FastAPI + solid-element WebSocket</title>
+</head>
+<body>
+    <h1>Jinja2 テンプレートで動くリアルタイム画面</h1>
+    <p>以下は solid-element で作られたカスタムエレメントです。</p>
+
+    <!-- 
+       カスタムタグとして直接配置！
+       Jinja2の変数を HTMLの属性経由で SolidJS に渡します。
+       ※ JSのキャメルケース(wsUrl)は、HTML側ではケバブケース(ws-url)で記述します。
+    -->
+    <solid-chat 
+        username="{{ username }}" 
+        ws-url="ws://{{ request.url.netloc }}/ws/{{ username }}">
+    </solid-chat>
+    <my-counter1></my-counter1>
+    <my-counter2></my-counter2>
+    <!-- ビルドされたスクリプトの読み込み（ここで上記タグがWeb Componentとして登録されます） -->
+    <!--
+    <script type="module" src="{{ url_for('static', path='dist/bundle.js') }}"></script>
+    -->
+    <script type="module" src="{{ url_for('solid-element', path='dist/my-element.es.js') }}"></script>
+</body>
+</html>
+
+
+
+
+
