@@ -1,12 +1,21 @@
 
- sms-anjali/
++シンプルAPP
+
+ sms-anjali/           #flask version
+
  sms-anjali-fastapi/
 
+ sms-anjali-fastapi-solid-element/
 
-AppSeed製のダッシュボード
 
- jinja-sb-admin/
++AppSeed製のダッシュボード
+
+ jinja-sb-admin/        #flask version
+
  jinja-sb-admin-fastapi/
+    cd jinja-sb-admin-fast-api/apps-fastapi
+    python3 main.py
+
 
 
 
